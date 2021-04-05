@@ -1,0 +1,49 @@
+{% load static %}
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Galaxy Store{% endblock %}</title>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+  <div id="header">
+      <header style = "background-color: #f8ffff" ;>
+          <logo style = "background-blend-mode: multiply";>
+      <a class="nav-link" href="/" class = "home">Home</a>&nbsp;&nbsp;&nbsp;
+      <a class="nav-link" href="{% url "email" %}">Contact Us</a>
+  </div>
+
+  <div id="subheader">
+
+    <div class="cart">
+        <cart style = background-color:#f1e8eb;>
+        <body style ="background-color: #d4e4ff" ;>
+      {% with total_items=cart|length %}
+          {% if cart|length > 0 %}
+            <img src = "/static/img/cart.jpg" alt = "My cart" style="width: 15px; height: 15px;">
+            <a href="{% url "cart:cart_detail" %}">
+              {{ total_items }} item{{ total_items|pluralize }},
+              ${{ cart.get_total_price }}
+            </a>
+          {% else %}
+            My Cart: empty.
+          {% endif %}
+        {% endwith %}
+    </div>
+  </div>
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+<footer>
+    <div class="copyright">
+    <copyright style = "font-size: 9px;
+                        font-style: italic;
+                        font-color: #000000;">
+        <center>© 2021 Copyright: Galaxy Store</center>
+    </copyright>
+    </div>
+</footer>
+</html>
